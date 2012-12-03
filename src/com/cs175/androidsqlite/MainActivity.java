@@ -119,6 +119,7 @@ public class MainActivity extends Activity{
 		Bundle b = new Bundle();
 		Intent i = new Intent(this, EditActivity.class);
 		b.putSerializable("contact", clickedContact);
+		i.putExtras(b);
 		startActivity(i);
 	}
 }
