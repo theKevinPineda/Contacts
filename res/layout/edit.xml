@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginLeft="7dip"
+        android:layout_marginTop="46dip"
         android:text="@string/name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="33dip"
         android:text="@string/number"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -35,36 +35,37 @@
 
         <requestFocus />
     </EditText>
-
+
     <EditText
         android:id="@+id/newNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
         android:layout_alignLeft="@+id/newName"
-        android:layout_alignTop="@+id/textView2"
         android:ems="10"
         android:inputType="phone" />
-
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/newNumber"
-        android:layout_marginTop="32dp" >
-
+        android:layout_marginTop="22dp" >
+
         <Button
             android:id="@+id/editButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="@string/edit" />
-
+
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="@string/cancel" />
-
     </LinearLayout>
 
 </RelativeLayout>

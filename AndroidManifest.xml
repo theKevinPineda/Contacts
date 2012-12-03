@@ -21,7 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditActivity">
+        <activity android:name=".EditActivity"
+              	  android:theme="@android:style/Theme.Dialog"
+              	  android:excludeFromRecents="true"
+            	  android:exported="false"
+            	  android:label="@string/app_edit"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
