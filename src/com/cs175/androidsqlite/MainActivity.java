@@ -3,6 +3,7 @@ package com.cs175.androidsqlite;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.cs175.quickaction.ActionItem;
 import com.cs175.quickaction.QuickAction;
 
@@ -21,6 +23,7 @@ public class MainActivity extends Activity{
 	private ListView list;
     private LazyAdapter adapter;
 	private int EDIT = 1, DELETE =2;
+	private Contact clickedContact;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,8 @@ public class MainActivity extends Activity{
                 ActionItem actionItem = quickAction.getActionItem(pos);
 
                 if (actionId == EDIT) {
-                    Toast.makeText(getApplicationContext(), "EDIT item selected", Toast.LENGTH_SHORT).show();
+                	editAction();
+                	
                 } else {
                     Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
                 }
@@ -69,7 +73,7 @@ public class MainActivity extends Activity{
 
 			public void onItemClick(AdapterView<?> arg0, View view, int arg2,
 					long arg3) {
-				
+				clickedContact = (Contact) view.getTag();
 				mQuickAction.show(view);
 				
 			}
@@ -110,5 +114,11 @@ public class MainActivity extends Activity{
 	    }
 	    result.close();
 	    return null;
+	}
+	private void editAction(){
+		Bundle b = new Bundle();
+		Intent i = new Intent(this, EditActivity.class);
+		b.putSerializable("contact", clickedContact);
+		startActivity(i);
 	}
 }

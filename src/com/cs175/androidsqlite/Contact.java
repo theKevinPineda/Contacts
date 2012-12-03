@@ -1,7 +1,13 @@
 package com.cs175.androidsqlite;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7965329939862684521L;
 	//private variables
 	int _id;
 	String _Aid;

@@ -3,5 +3,9 @@
 
     <string name="hello">Hello World</string>
     <string name="app_name">Contacts</string>
+    <string name="name">Name:</string>
+    <string name="number">Number:</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
