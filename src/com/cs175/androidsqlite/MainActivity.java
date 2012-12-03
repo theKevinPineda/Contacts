@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -24,7 +23,9 @@ public class MainActivity extends Activity{
     private LazyAdapter adapter;
 	private int EDIT = 1, DELETE =2;
 	private Contact clickedContact;
-    @Override
+	private final int REQUEST_CODE=1;
+    private QuickAction mQuickAction;
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
@@ -32,52 +33,11 @@ public class MainActivity extends Activity{
         
         db = new DatabaseHandler(this);
         populateContact();
-        //Reading all contacts
-        Log.d("Reading: ", "Reading all contacts..");
-        ArrayList<Contact> contacts = db.getAllContacts();      
-		list=(ListView)findViewById(R.id.list);
-		adapter=new LazyAdapter(this, contacts);        
-        list.setAdapter(adapter);
-
-        ActionItem editItem      = new ActionItem(EDIT, "Edit", getResources().getDrawable(R.drawable.edit));
-        ActionItem deletetItem   = new ActionItem(DELETE, "Delete", getResources().getDrawable(R.drawable.cancel));
         
-        final QuickAction mQuickAction  = new QuickAction(this);
         
-        mQuickAction.addActionItem(editItem);
-        mQuickAction.addActionItem(deletetItem);
-        
-        mQuickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
-            
-            public void onItemClick(QuickAction quickAction, int pos, int actionId) {
-                ActionItem actionItem = quickAction.getActionItem(pos);
-
-                if (actionId == EDIT) {
-                	editAction();
-                	
-                } else {
-                    Toast.makeText(getApplicationContext(), actionItem.getTitle() + " selected", Toast.LENGTH_SHORT).show();
-                }
-                
-                
-            }
-        });
-        mQuickAction.setOnDismissListener(new QuickAction.OnDismissListener() {
-          
-            public void onDismiss() {
-                Toast.makeText(getApplicationContext(), "Ups..dismissed", Toast.LENGTH_SHORT).show();
-            }
-        });
-        
-        list.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> arg0, View view, int arg2,
-					long arg3) {
-				clickedContact = (Contact) view.getTag();
-				mQuickAction.show(view);
-				
-			}
-		});
+        listPopulate();
+        setQuickAction();
+        setListeners();
     }
 	
 	private Cursor getContacts() {
@@ -97,7 +57,13 @@ public class MainActivity extends Activity{
         	db.addContact(new Contact(Integer.parseInt(id), name, number));
         }
 	}
-	
+	private void listPopulate(){
+		ArrayList<Contact> contacts = db.getAllContacts();      
+		list=(ListView)findViewById(R.id.list);
+		adapter=new LazyAdapter(this, contacts);        
+        list.setAdapter(adapter);
+		
+	}
 	private String getContentData(String contactID) {
 	    Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 	    String[] projection = null;
@@ -115,11 +81,80 @@ public class MainActivity extends Activity{
 	    result.close();
 	    return null;
 	}
+	
+	private void setQuickAction(){
+		ActionItem editItem      = new ActionItem(EDIT, "Edit", getResources().getDrawable(R.drawable.edit));
+        ActionItem deletetItem   = new ActionItem(DELETE, "Delete", getResources().getDrawable(R.drawable.cancel));
+        mQuickAction  = new QuickAction(this);
+        mQuickAction.addActionItem(editItem);
+        mQuickAction.addActionItem(deletetItem);		
+	}
+	
 	private void editAction(){
 		Bundle b = new Bundle();
 		Intent i = new Intent(this, EditActivity.class);
 		b.putSerializable("contact", clickedContact);
 		i.putExtras(b);
-		startActivity(i);
+		startActivityForResult(i, REQUEST_CODE);
+	}
+	
+	private void deleteAction(){
+		db.deleteContact(clickedContact);
+		listPopulate();
+	}
+	
+	@Override
+	protected void onActivityResult(int request, int result, Intent i) {
+		
+		super.onActivityResult(request, result, i);
+		
+		if(result == 1){
+			listPopulate();
+			toastThis(1);
+		}
+		else if(result == 2){
+			toastThis(2);
+		}
+	}
+	
+	private void toastThis(int i){
+		switch(i){
+			
+		case(1):Toast.makeText(getBaseContext(), "Successfully Edited Contact", Toast.LENGTH_SHORT).show();
+		break;
+		case(2):Toast.makeText(getBaseContext(), "Nothing Changed", Toast.LENGTH_SHORT).show();
+		break;
+		
+		}
+		
+	}
+	
+
+	private void setListeners(){
+		mQuickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+            
+            public void onItemClick(QuickAction quickAction, int pos, int actionId) {
+ 
+                if (actionId == EDIT) {
+                	editAction();
+                	
+                } else {
+                	deleteAction();
+                }
+                
+                
+            }
+        });
+        
+        list.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View view, int arg2,
+					long arg3) {
+				clickedContact = (Contact) view.getTag();
+				mQuickAction.show(view);
+				
+			}
+		});
+		
 	}
 }

@@ -53,10 +53,13 @@ private Contact recievedContact;
 		
 		DatabaseHandler db = new DatabaseHandler(this);
 		db.updateContact(recievedContact);
+		setResult(1, getIntent());
 		finish();
 		
 	}
 	public void pressedCancel(){
+		setResult(2, getIntent());
+		
 		finish();
 		
 	}
