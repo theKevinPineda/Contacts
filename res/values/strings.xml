@@ -2,7 +2,8 @@
 <resources>
 
     <string name="hello">Hello World</string>
-    <string name="app_name">Contacts</string>
+    <string name="app_name">Android Act 1</string>
+    <string name="app_edit">Edit Contact</string>
     <string name="name">Name:</string>
     <string name="number">Number:</string>
     <string name="edit">Edit</string>

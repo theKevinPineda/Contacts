@@ -18,8 +18,7 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
-
-import com.cs175.androidsqlite.R;
+import cs175.androidsqlite.PinedaK.Act1.R;
 
 /**
  * QuickAction dialog.
