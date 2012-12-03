@@ -30,13 +30,15 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        
+        // Initializes database handler
         db = new DatabaseHandler(this);
+        // Populates Contact Database from the ContactsContract 
         populateContact();
-        
-        
+        // Populates the ListView with the current Database data
         listPopulate();
+        // Sets Quick Action for Edit and Delete Functions
         setQuickAction();
+        // Sets Listeners for the List and the Itens on Quick Menu
         setListeners();
     }
 	
@@ -47,7 +49,7 @@ public class MainActivity extends Activity{
 	    return	 getContentResolver().query(uri, projection, null, null, null);
 	}
 	
-	void populateContact(){
+	private void populateContact(){
 		
 		Cursor cursor = getContacts();
 		while(cursor.moveToNext()){
@@ -57,6 +59,7 @@ public class MainActivity extends Activity{
         	db.addContact(new Contact(Integer.parseInt(id), name, number));
         }
 	}
+	
 	private void listPopulate(){
 		ArrayList<Contact> contacts = db.getAllContacts();      
 		list=(ListView)findViewById(R.id.list);
@@ -64,6 +67,7 @@ public class MainActivity extends Activity{
         list.setAdapter(adapter);
 		
 	}
+	
 	private String getContentData(String contactID) {
 	    Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 	    String[] projection = null;
@@ -101,6 +105,7 @@ public class MainActivity extends Activity{
 	private void deleteAction(){
 		db.deleteContact(clickedContact);
 		listPopulate();
+		toastThis(3);
 	}
 	
 	@Override
@@ -124,7 +129,8 @@ public class MainActivity extends Activity{
 		break;
 		case(2):Toast.makeText(getBaseContext(), "Nothing Changed", Toast.LENGTH_SHORT).show();
 		break;
-		
+		case(3):Toast.makeText(getBaseContext(), "Successfully Deleted Contact", Toast.LENGTH_SHORT).show();
+		break;
 		}
 		
 	}
@@ -134,15 +140,10 @@ public class MainActivity extends Activity{
 		mQuickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
             
             public void onItemClick(QuickAction quickAction, int pos, int actionId) {
- 
-                if (actionId == EDIT) {
+                if (actionId == EDIT)
                 	editAction();
-                	
-                } else {
+                else 
                 	deleteAction();
-                }
-                
-                
             }
         });
         

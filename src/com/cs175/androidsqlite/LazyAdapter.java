@@ -57,7 +57,7 @@ public class LazyAdapter extends BaseAdapter {
         // Setting all values in listview
         name.setText(contact.getName());
         number.setText(contact.getPhoneNumber());
-        
+        // Setting the photo
         Uri contactURI = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, String.valueOf(contact.getID()));
         InputStream photo_stream = ContactsContract.Contacts.openContactPhotoInputStream(activity.getContentResolver(),contactURI);            
         BufferedInputStream buf =new BufferedInputStream(photo_stream);
