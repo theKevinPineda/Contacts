@@ -1,4 +1,4 @@
-package cs175.androidsqlite.PinedaK.Act1;
+package cs175.androidsqlite.PinedaK.QuerubinJ.Act1;
 
 import java.io.Serializable;
 

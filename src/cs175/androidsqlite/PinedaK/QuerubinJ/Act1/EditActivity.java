@@ -1,6 +1,8 @@
-package cs175.androidsqlite.PinedaK.Act1;
+package cs175.androidsqlite.PinedaK.QuerubinJ.Act1;
 
+import cs175.androidsqlite.PinedaK.Act1.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,9 +33,13 @@ private EditText editName, editNumber;
 		
 		DatabaseHandler db = new DatabaseHandler(this);
 		db.updateContact(recievedContact);
-		
+		Intent i =getIntent();
+		Bundle b = new Bundle();
+		recievedContact.setName("WTF it worked");
+		b.putSerializable("con",recievedContact);
+		i.putExtras(b);
 		setResult((tempName.isEmpty()==true&&tempNumber.isEmpty()==true)?2:1,
-				getIntent());
+				i);
 		finish();
 		
 	}

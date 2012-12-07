@@ -1,4 +1,4 @@
-package cs175.androidsqlite.PinedaK.Act1;
+package cs175.androidsqlite.PinedaK.QuerubinJ.Act1;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.cs175.quickaction.ActionItem;
 import com.cs175.quickaction.QuickAction;
+
+import cs175.androidsqlite.PinedaK.Act1.R;
 
 public class MainActivity extends Activity{
 	private static DatabaseHandler db;
@@ -116,10 +118,16 @@ public class MainActivity extends Activity{
 		if(result == 1){
 			listPopulate();
 			toastThis(1);
+			Bundle b=i.getExtras();
+			Contact c = (Contact)b.getSerializable("con");
+
+			Toast.makeText(getBaseContext(), c.getName(), Toast.LENGTH_LONG).show();
 		}
 		else if(result == 2){
 			toastThis(2);
 		}
+		
+		
 	}
 	
 	private void toastThis(int i){

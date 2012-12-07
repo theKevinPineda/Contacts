@@ -1,8 +1,10 @@
-package cs175.androidsqlite.PinedaK.Act1;
+package cs175.androidsqlite.PinedaK.QuerubinJ.Act1;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import cs175.androidsqlite.PinedaK.Act1.R;
 
 import android.app.Activity;
 import android.content.Context;
