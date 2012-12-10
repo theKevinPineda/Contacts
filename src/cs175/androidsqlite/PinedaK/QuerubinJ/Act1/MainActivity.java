@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.cs175.quickaction.ActionItem;
 import com.cs175.quickaction.QuickAction;
 
-import cs175.androidsqlite.PinedaK.Act1.R;
-
 public class MainActivity extends Activity{
 	private static DatabaseHandler db;
 	private ListView list;

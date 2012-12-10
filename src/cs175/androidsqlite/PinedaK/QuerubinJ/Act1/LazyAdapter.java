@@ -4,8 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import cs175.androidsqlite.PinedaK.Act1.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;

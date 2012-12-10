@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package cs175.androidsqlite.PinedaK.Act1;
+package cs175.androidsqlite.PinedaK.QuerubinJ.Act1;
 
 public final class R {
     public static final class anim {

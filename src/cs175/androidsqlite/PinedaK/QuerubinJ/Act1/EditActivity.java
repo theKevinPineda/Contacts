@@ -1,6 +1,5 @@
 package cs175.androidsqlite.PinedaK.QuerubinJ.Act1;
 
-import cs175.androidsqlite.PinedaK.Act1.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
